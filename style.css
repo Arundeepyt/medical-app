@@ -13,29 +13,30 @@
 
 body{
     margin:0;
-    min-height:100vh;
+    min-height:100svh;
     display:flex;
     justify-content:center;
+    align-items:flex-start;
     background:
-        radial-gradient(circle at 20% 30%, rgba(0,255,255,.6), transparent 35%),
-        radial-gradient(circle at 80% 70%, rgba(255,0,255,.6), transparent 35%),
+        radial-gradient(circle at 20% 30%, rgba(0,255,255,.5), transparent 40%),
+        radial-gradient(circle at 80% 70%, rgba(255,0,255,.5), transparent 40%),
         linear-gradient(135deg,var(--dark1),var(--dark2));
     color:white;
-    overflow-x:hidden;
+    padding:20px;
 }
 
-/* animated glow fog */
+/* fog */
 body::before{
     content:"";
     position:fixed;
-    inset:-40%;
+    inset:-30%;
     background:
-        radial-gradient(circle,var(--n1),transparent 40%),
-        radial-gradient(circle,var(--n2),transparent 40%),
-        radial-gradient(circle,var(--n3),transparent 45%);
-    filter:blur(90px);
-    opacity:.55;
-    animation:fogMove 30s linear infinite, hue 20s linear infinite;
+        radial-gradient(circle,var(--n1),transparent 45%),
+        radial-gradient(circle,var(--n2),transparent 45%),
+        radial-gradient(circle,var(--n3),transparent 50%);
+    filter:blur(100px);
+    opacity:.45;
+    animation:fogMove 40s linear infinite, hue 30s linear infinite;
     pointer-events:none;
 }
 
@@ -44,21 +45,20 @@ body::before{
     to{transform:translate(10%,10%);}
 }
 @keyframes hue{
-    from{filter:hue-rotate(0deg);}
     to{filter:hue-rotate(360deg);}
 }
 
-/* containers */
+/* boxes */
 .container,.login-box{
     width:100%;
-    max-width:430px;
-    padding:26px;
-    margin:20px;
+    max-width:420px;
+    padding:24px;
+    margin:auto;
     border-radius:22px;
-    background:rgba(10,10,30,.85);
-    backdrop-filter:blur(20px);
+    background:rgba(10,10,30,.88);
+    backdrop-filter:blur(18px);
     border:1px solid var(--n1);
-    box-shadow:0 0 60px var(--n1);
+    box-shadow:0 0 50px rgba(0,255,255,.5);
 }
 
 /* headings */
@@ -67,7 +67,6 @@ h1,h2{
     background:linear-gradient(90deg,var(--n1),var(--n2),var(--n3));
     -webkit-background-clip:text;
     color:transparent;
-    text-shadow:0 0 25px var(--n1);
 }
 
 /* inputs */
@@ -79,7 +78,6 @@ input{
     background:#000;
     border:1px solid var(--n1);
     color:white;
-    box-shadow:0 0 12px var(--n1) inset;
 }
 
 /* buttons */
@@ -88,17 +86,15 @@ button{
     padding:14px;
     margin-top:12px;
     border:none;
-    border-radius:40px;
+    border-radius:30px;
     background:linear-gradient(120deg,var(--n1),var(--n2),var(--n3));
     background-size:300% 300%;
-    animation:btnFlow 4s linear infinite;
+    animation:btnFlow 5s linear infinite;
     font-weight:bold;
     cursor:pointer;
-    box-shadow:0 0 30px var(--n1);
 }
 
 @keyframes btnFlow{
-    from{background-position:0% 50%;}
     to{background-position:300% 50%;}
 }
 
@@ -108,29 +104,28 @@ button{
     border-radius:20px;
     background:#020611;
     overflow:hidden;
-    margin:12px 0;
+    margin:14px 0;
 }
 #progressBar{
     height:100%;
     width:0;
     background:linear-gradient(90deg,var(--n1),var(--n2),var(--n3));
-    box-shadow:0 0 25px var(--n1);
 }
 
 /* cards */
-.card{
+.historyCard{
     background:rgba(0,0,0,.6);
     padding:14px;
-    margin:10px 0;
+    margin:12px 0;
     border-radius:16px;
-    box-shadow:0 0 25px var(--n1);
+    border-left:4px solid var(--n1);
 }
 
 /* tabs */
 .tabs{
     display:flex;
     gap:10px;
-    margin-top:14px;
+    margin:14px 0;
 }
 .tabs button{
     flex:1;
