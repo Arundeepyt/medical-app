@@ -1,99 +1,86 @@
-const history=document.getElementById("history");
-const guide=document.getElementById("guide");
-const progressBar=document.getElementById("progressBar");
-const progressChart=document.getElementById("progressChart");
+let chart;
 
-let sessions=[];
-let chart=null;
+function login(){
+    const u=document.getElementById("username").value;
+    const p=document.getElementById("password").value;
 
-function showTab(tab){
-    history.style.display="none";
-    guide.style.display="none";
-    progressChart.style.display="none";
-
-    if(tab==="history") history.style.display="block";
-    if(tab==="guide") guide.style.display="block";
-    if(tab==="progress") progressChart.style.display="block";
-}
-
-function getSolution(injury,pain){
-    if(injury==="knee"){
-        return pain==3
-        ? ["Rest completely","Avoid squats","Use ice"]
-        : ["Light walking","Stretch quads","Avoid jumping"];
+    if(u==="admin" && p==="1234"){
+        document.getElementById("loginScreen").style.display="none";
+        document.getElementById("appScreen").style.display="block";
+        updateHistory();
+    }else{
+        alert("Wrong login");
     }
-    if(injury==="back"){
-        return pain==3
-        ? ["No bending","Use heat","Sleep flat"]
-        : ["Core exercises","Avoid lifting","Stretch gently"];
-    }
-    return ["Rest shoulder","Avoid overhead work","Light rotations"];
 }
 
 function saveData(){
-    const name=document.getElementById("name").value;
-    const injury=document.getElementById("injury").value;
-    const pain=document.getElementById("pain").value;
+    const name=nameInput();
+    const injury=injuryInput();
+    const pain=painInput();
+    const motion=motionInput();
 
-    const solution=getSolution(injury,pain);
+    const solution=getGuide(injury,pain);
 
-    const session={
-        name,
-        injury,
-        pain,
-        solution,
-        date:new Date().toLocaleString()
-    };
+    const session={name,injury,pain,motion,solution,date:new Date().toLocaleString()};
 
-    sessions.push(session);
+    const data=JSON.parse(localStorage.getItem("physio")||"[]");
+    data.push(session);
+    localStorage.setItem("physio",JSON.stringify(data));
 
+    document.getElementById("progressBar").style.width=motion+"%";
     updateHistory();
-    updateGuide(solution);
-    updateProgress();
-    drawChart();
-
-    showTab("history");
+    updateChart();
+    showTab("guide");
 }
 
 function updateHistory(){
-    history.innerHTML="";
-    sessions.forEach(s=>{
-        history.innerHTML+=`
-        <div>
-            <b>${s.date}</b><br>
-            ${s.injury} pain (${s.pain})
-        </div><hr>`;
-    });
+    const history=document.getElementById("history");
+    const data=JSON.parse(localStorage.getItem("physio")||"[]");
+    history.innerHTML=data.map(d=>`
+        <b>${d.name}</b> (${d.date})<br>
+        Injury: ${d.injury}<br>
+        Pain: ${d.pain}<br>
+        Recovery: ${d.motion}%<hr>
+    `).join("");
 }
 
-function updateGuide(list){
-    guide.innerHTML="<b>✔ What to do / ❌ What not to do</b><ul>";
-    list.forEach(i=>{
-        guide.innerHTML+=`<li>${i}</li>`;
-    });
-    guide.innerHTML+="</ul>";
-}
-
-function updateProgress(){
-    progressBar.style.width=Math.min(sessions.length*20,100)+"%";
-}
-
-function drawChart(){
+function updateChart(){
+    const data=JSON.parse(localStorage.getItem("physio")||"[]");
+    const ctx=document.getElementById("progressChart");
     if(chart) chart.destroy();
 
-    chart=new Chart(progressChart,{
+    chart=new Chart(ctx,{
         type:"line",
         data:{
-            labels:sessions.map((_,i)=>i+1),
+            labels:data.map(d=>d.date),
             datasets:[{
-                label:"Pain Level",
-                data:sessions.map(s=>s.pain),
-                borderWidth:2
+                label:"Recovery %",
+                data:data.map(d=>d.motion),
+                borderColor:"#00ffff",
+                tension:.4
             }]
-        },
-        options:{
-            responsive:true,
-            scales:{y:{min:0,max:3}}
         }
     });
 }
+
+function showTab(tab){
+    ["history","guide","progressChart"].forEach(id=>{
+        document.getElementById(id).style.display="none";
+    });
+    document.getElementById(tab==="progress"?"progressChart":tab).style.display="block";
+}
+
+function getGuide(injury,pain){
+    let text="✔ What to do:<br>";
+    if(injury==="knee") text+="• Light walking<br>• Quad stretch<br>❌ Avoid jumping";
+    if(injury==="back") text+="• Hot pack<br>• Posture care<br>❌ Avoid bending";
+    if(injury==="shoulder") text+="• Pendulum exercise<br>❌ Avoid overhead lifting";
+    document.getElementById("guide").innerHTML=text;
+    return text;
+}
+
+/* helpers */
+const nameInput=()=>document.getElementById("name").value;
+const injuryInput=()=>document.getElementById("injury").value;
+const painInput=()=>document.getElementById("pain").value;
+const motionInput=()=>document.getElementById("motion").value;
