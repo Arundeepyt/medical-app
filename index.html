@@ -2,37 +2,35 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Physio Recovery Tracker</title>
+<title>Pain Recovery Assistant</title>
 <link rel="stylesheet" href="style.css">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
-<!-- LOGIN -->
-<div class="login-box" id="loginBox">
-    <h1>Physio Login</h1>
-    <input id="username" placeholder="Username">
-    <input id="password" type="password" placeholder="Password">
-    <button onclick="login()">Login</button>
-</div>
+<div class="container">
 
-<!-- APP -->
-<div class="container" id="app" style="display:none">
+<h1>🧠 Pain Recovery AI</h1>
 
-<h1>Recovery Tracker</h1>
+<input id="name" placeholder="Your name">
 
-<input id="name" placeholder="Patient Name">
-<input id="injury" placeholder="Injury (knee / back / shoulder)">
+<select id="injury">
+    <option value="knee">Knee Pain</option>
+    <option value="back">Back Pain</option>
+    <option value="shoulder">Shoulder Pain</option>
+</select>
 
-<label>Pain Level: <span id="painValue">5</span></label>
-<input type="range" id="pain" min="0" max="10" value="5">
+<select id="pain">
+    <option value="1">Mild</option>
+    <option value="2">Moderate</option>
+    <option value="3">Severe</option>
+</select>
 
-<input id="motion" type="number" placeholder="Motion % (0-100)">
-
-<h2>Exercises</h2>
-<label><input type="checkbox" value="Stretching"> Stretching</label><br>
-<label><input type="checkbox" value="Strength"> Strength</label><br>
-<label><input type="checkbox" value="Balance"> Balance</label>
+<select id="motion">
+    <option value="low">Low Mobility</option>
+    <option value="medium">Medium Mobility</option>
+    <option value="high">High Mobility</option>
+</select>
 
 <button onclick="saveData()">Save Session</button>
 
@@ -43,10 +41,14 @@
 <div class="tabs">
     <button onclick="showTab('history')">History</button>
     <button onclick="showTab('progress')">Progress</button>
+    <button onclick="showTab('guide')">What To Do</button>
 </div>
 
-<div id="history"></div>
-<canvas id="progressChart" style="display:none"></canvas>
+<div id="history" class="tab"></div>
+
+<div id="guide" class="tab" style="display:none"></div>
+
+<canvas id="progressChart" class="tab" height="220" style="display:none"></canvas>
 
 </div>
 
