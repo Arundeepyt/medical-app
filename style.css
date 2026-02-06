@@ -1,55 +1,66 @@
+
 :root{
     --n1:#00ffff;
     --n2:#ff00ff;
     --n3:#00ff99;
-    --bg1:#02030a;
-    --bg2:#050018;
+    --dark1:#02030a;
+    --dark2:#050018;
 }
 
 *{
     box-sizing:border-box;
-    font-family:system-ui,sans-serif;
+    font-family:"Segoe UI",system-ui,sans-serif;
 }
 
 body{
     margin:0;
-    background:
-        radial-gradient(circle at 20% 30%, #00ffff55, transparent 40%),
-        radial-gradient(circle at 80% 70%, #ff00ff55, transparent 40%),
-        linear-gradient(135deg,var(--bg1),var(--bg2));
-    color:white;
-}
-
-/* ---------------- LOGIN ---------------- */
-.login-screen{
     min-height:100vh;
     display:flex;
     justify-content:center;
-    align-items:center;
+    align-items:flex-start;
+    background:
+        radial-gradient(circle at 20% 30%, rgba(0,255,255,.6), transparent 35%),
+        radial-gradient(circle at 80% 70%, rgba(255,0,255,.6), transparent 35%),
+        linear-gradient(135deg,var(--dark1),var(--dark2));
+    color:white;
 }
 
-.login-box{
-    width:90%;
-    max-width:380px;
+/* glow fog */
+body::before{
+    content:"";
+    position:fixed;
+    inset:-40%;
+    background:
+        radial-gradient(circle,var(--n1),transparent 40%),
+        radial-gradient(circle,var(--n2),transparent 40%),
+        radial-gradient(circle,var(--n3),transparent 45%);
+    filter:blur(90px);
+    opacity:.45;
+    animation:move 30s linear infinite, hue 20s linear infinite;
+    pointer-events:none;
+}
+
+@keyframes move{
+    from{transform:translate(-10%,-10%);}
+    to{transform:translate(10%,10%);}
+}
+@keyframes hue{
+    to{filter:hue-rotate(360deg);}
+}
+
+/* boxes */
+.login-box,.container{
+    width:100%;
+    max-width:430px;
     padding:26px;
-    background:rgba(10,10,30,.9);
+    margin:30px;
     border-radius:22px;
+    background:rgba(10,10,30,.85);
+    backdrop-filter:blur(20px);
+    border:1px solid var(--n1);
     box-shadow:0 0 50px var(--n1);
 }
 
-/* ---------------- APP ---------------- */
-.app-screen{
-    display:none;
-    max-width:420px;
-    margin:0 auto;
-    padding:20px;
-    min-height:100vh;
-    background:rgba(10,10,30,.9);
-    border-radius:26px;
-    box-shadow:0 0 50px var(--n1);
-}
-
-/* UI */
 h1,h2{
     text-align:center;
     background:linear-gradient(90deg,var(--n1),var(--n2),var(--n3));
@@ -57,7 +68,8 @@ h1,h2{
     color:transparent;
 }
 
-input,select{
+/* inputs */
+input{
     width:100%;
     padding:12px;
     margin:10px 0;
@@ -67,40 +79,61 @@ input,select{
     color:white;
 }
 
+/* buttons */
 button{
     width:100%;
     padding:14px;
+    margin-top:12px;
     border:none;
     border-radius:40px;
     background:linear-gradient(120deg,var(--n1),var(--n2),var(--n3));
+    background-size:300% 300%;
+    animation:flow 4s linear infinite;
     font-weight:bold;
     cursor:pointer;
 }
 
-/* Progress */
+@keyframes flow{
+    to{background-position:300% 50%;}
+}
+
+/* welcome */
+.welcome{
+    padding:14px;
+    margin-bottom:14px;
+    border-radius:16px;
+    text-align:center;
+    font-size:18px;
+    background:rgba(0,0,0,.6);
+    border:1px solid var(--n1);
+    box-shadow:0 0 30px var(--n1);
+}
+
+/* progress */
 .progress{
     height:14px;
     background:#020611;
     border-radius:20px;
     overflow:hidden;
-    margin:14px 0;
 }
 #progressBar{
     height:100%;
-    width:0;
+    width:0%;
     background:linear-gradient(90deg,var(--n1),var(--n2),var(--n3));
 }
 
-/* Tabs */
+/* tabs */
 .tabs{
     display:flex;
     gap:10px;
     margin-top:14px;
 }
-.tabs button{
-    flex:1;
-}
+.tabs button{flex:1}
 
-/* Sections */
-.tab{
-    margin-top:14px
+/* card */
+.card{
+    background:rgba(0,0,0,.6);
+    padding:14px;
+    margin-top:12px;
+    border-radius:16px;
+}
