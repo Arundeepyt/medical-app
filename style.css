@@ -13,27 +13,44 @@
 
 body{
     margin:0;
-    min-height:100vh;
-    display:flex;
-    justify-content:center;
     background:
-        radial-gradient(circle at 20% 30%, #00ffff66, transparent 40%),
-        radial-gradient(circle at 80% 70%, #ff00ff66, transparent 40%),
+        radial-gradient(circle at 20% 30%, #00ffff55, transparent 40%),
+        radial-gradient(circle at 80% 70%, #ff00ff55, transparent 40%),
         linear-gradient(135deg,var(--bg1),var(--bg2));
     color:white;
 }
 
-.container{
-    width:100%;
-    max-width:420px;
-    padding:24px;
-    margin:20px;
-    border-radius:22px;
+/* ---------------- LOGIN ---------------- */
+.login-screen{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.login-box{
+    width:90%;
+    max-width:380px;
+    padding:26px;
     background:rgba(10,10,30,.9);
+    border-radius:22px;
     box-shadow:0 0 50px var(--n1);
 }
 
-h1{
+/* ---------------- APP ---------------- */
+.app-screen{
+    display:none;
+    max-width:420px;
+    margin:0 auto;
+    padding:20px;
+    min-height:100vh;
+    background:rgba(10,10,30,.9);
+    border-radius:26px;
+    box-shadow:0 0 50px var(--n1);
+}
+
+/* UI */
+h1,h2{
     text-align:center;
     background:linear-gradient(90deg,var(--n1),var(--n2),var(--n3));
     -webkit-background-clip:text;
@@ -53,7 +70,6 @@ input,select{
 button{
     width:100%;
     padding:14px;
-    margin-top:12px;
     border:none;
     border-radius:40px;
     background:linear-gradient(120deg,var(--n1),var(--n2),var(--n3));
@@ -61,6 +77,7 @@ button{
     cursor:pointer;
 }
 
+/* Progress */
 .progress{
     height:14px;
     background:#020611;
@@ -68,27 +85,22 @@ button{
     overflow:hidden;
     margin:14px 0;
 }
-
 #progressBar{
     height:100%;
     width:0;
     background:linear-gradient(90deg,var(--n1),var(--n2),var(--n3));
 }
 
+/* Tabs */
 .tabs{
     display:flex;
     gap:10px;
     margin-top:14px;
 }
-
 .tabs button{
     flex:1;
 }
 
+/* Sections */
 .tab{
-    margin-top:14px;
-    padding:14px;
-    background:rgba(0,0,0,.6);
-    border-radius:14px;
-    min-height:80px;
-}
+    margin-top:14px
