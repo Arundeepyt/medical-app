@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Physio App</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+<!-- LOGIN -->
+<div class="login-box" id="loginBox">
+    <h2>Login</h2>
+    <input id="username" placeholder="Username">
+    <input id="password" type="password" placeholder="Password">
+    <button onclick="login()">Login</button>
+</div>
+
+<!-- APP -->
+<div class="container" id="app" style="display:none">
+
+<h1>Physio Tracker</h1>
+
+<!-- FORM -->
+<input id="name" placeholder="Patient Name">
+<input id="injury" placeholder="Injury Type">
+<input type="range" id="pain" min="0" max="10">
+<div>Pain: <span id="painValue">0</span></div>
+
+<input type="number" id="motion" placeholder="Motion %" min="0" max="100">
+
+<label><input type="checkbox" value="Stretching"> Stretching</label>
+<label><input type="checkbox" value="Strengthening"> Strengthening</label>
+<label><input type="checkbox" value="Ice Pack"> Ice Pack</label>
+
+<button onclick="saveData()">Save Session</button>
+
+<!-- SOLUTION -->
+<div id="solutionBox"></div>
+
+<!-- PROGRESS -->
+<div class="progress">
+    <div id="progressBar"></div>
+</div>
+
+<!-- TABS -->
+<div class="tabs">
+    <button onclick="showTab('history')">History</button>
+    <button onclick="showTab('chart')">Progress</button>
+</div>
+
+<!-- HISTORY TAB -->
+<div id="historyTab">
+    <div id="history"></div>
+</div>
+
+<!-- CHART TAB -->
+<div id="chartTab" style="display:none">
+    <canvas id="progressChart"></canvas>
+</div>
+
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
