@@ -2,64 +2,54 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pain Recovery App</title>
+<title>Smart App</title>
 <link rel="stylesheet" href="style.css">
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
 
-<!-- LOGIN SCREEN -->
-<div class="login-screen" id="loginScreen">
-    <div class="login-box">
-        <h2>Login</h2>
-        <input id="username" placeholder="Username">
-        <input id="password" type="password" placeholder="Password">
-        <button onclick="login()">Login</button>
-    </div>
+<!-- LOGIN -->
+<div class="login-box" id="loginScreen">
+    <h1>Login</h1>
+    <input id="username" placeholder="Username">
+    <input id="password" type="password" placeholder="Password">
+    <button onclick="login()">Login</button>
 </div>
 
-<!-- MAIN APP -->
-<div class="app-screen" id="appScreen">
+<!-- APP -->
+<div class="container" id="appScreen" style="display:none">
 
-    <h1>Pain Recovery AI</h1>
+    <div id="welcomeBox" class="welcome"></div>
 
-    <input id="name" placeholder="Your Name">
-
-    <select id="injury">
-        <option value="knee">Knee Pain</option>
-        <option value="back">Back Pain</option>
-        <option value="shoulder">Shoulder Pain</option>
-    </select>
-
-    <select id="pain">
-        <option value="3">Low Pain</option>
-        <option value="6">Medium Pain</option>
-        <option value="9">High Pain</option>
-    </select>
-
-    <select id="motion">
-        <option value="30">Low Mobility</option>
-        <option value="60">Medium Mobility</option>
-        <option value="90">High Mobility</option>
-    </select>
-
-    <button onclick="saveData()">Save Session</button>
-
+    <h2>Progress</h2>
     <div class="progress">
         <div id="progressBar"></div>
     </div>
 
+    <button onclick="addProgress()">Increase Progress</button>
+
     <div class="tabs">
         <button onclick="showTab('history')">History</button>
-        <button onclick="showTab('progress')">Progress</button>
-        <button onclick="showTab('guide')">What To Do</button>
+        <button onclick="showTab('rules')">What To Do</button>
     </div>
 
-    <div id="history" class="tab"></div>
-    <div id="guide" class="tab"></div>
-    <canvas id="progressChart" class="tab" height="220"></canvas>
+    <!-- HISTORY -->
+    <div id="history" class="card"></div>
+
+    <!-- RULES -->
+    <div id="rules" class="card" style="display:none">
+        <h3>✔ What To Do</h3>
+        <ul>
+            <li>Focus on one task</li>
+            <li>Save progress daily</li>
+        </ul>
+
+        <h3>❌ What Not To Do</h3>
+        <ul>
+            <li>Do not skip steps</li>
+            <li>Do not rush results</li>
+        </ul>
+    </div>
 
 </div>
 
